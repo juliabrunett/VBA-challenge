@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module5"
+Attribute VB_Name = "Module6"
 Sub stockAnalysis():
 
 ' Define variables
@@ -7,7 +7,6 @@ Sub stockAnalysis():
     Dim close_price As Double
     Dim volume As Double
     Dim year_change As Double
-    Dim percent_change As Double
     Dim blankrow As Double
     Dim max_date As Double
     Dim min_date As Double
@@ -33,34 +32,38 @@ Sub stockAnalysis():
     i = 2
     n = 2
     
-' Define minimum date & maximum date for stock
-    max_date = WorksheetFunction.Max(Range("B2:B" & Range("B" & Rows.Count).End(xlUp).Row))
-    min_date = WorksheetFunction.Min(Range("B2:B" & Range("B" & Rows.Count).End(xlUp).Row))
-
 ' Loop through data to sum volume & provide ticker
 For r = 2 To blankrow
 
-' If specified date is equal to the maximum date and the next ticker is different
-     If Cells(r, 2).Value = max_date And Cells(r, 1).Value <> Cells(r + 1, 1).Value Or Cells(r, 2).Value < max_date And Cells(r, 1).Value <> Cells(r + 1, 1).Value Then
+' If the next ticker is different
+     If Cells(r, 1).Value <> Cells(r + 1, 1).Value Then
         
     ' Store Closing Price for current ticker
         close_price = Cells(r, 6).Value
 
     ' Calculate yearly change & percent change
-        year_change = close_price - open_price
-        percent_change = (year_change / open_price) * 100
+        year_change = Round(close_price - open_price, 2)
         
     ' Output Year Change
         Cells(n, 10).Value = year_change
+            
+            ' If open price doesn't equal 0
+            If open_price <> 0 Then
+            
+                percent_change = (year_change / open_price) * 100
+            
+            ' If open price equals 0
+            ElseIf open_price = 0 Then
+            
+                percent_change = 0
+                
+            End If
+
+    ' Output Percent Change
+        Cells(n, 11).Value = percent_change & "%"
         
     ' Reset Year Change
     year_change = 0
-       
-    ' Output Percent Change
-        Cells(n, 11).Value = percent_change & "%"
-    
-    ' Reset Percent Change
-    percent_change = 0
         
         ' TEST : Output Closing Price
             'Cells(n, 14).Value = close_price
@@ -70,15 +73,9 @@ For r = 2 To blankrow
             
     ' Update step counter for output
         n = n + 1
-        
-' If date is equal to the minimum date
-    ElseIf Cells(r, 2).Value = min_date Then
-                
-    ' Store Open Price for current ticker
-        open_price = Cells(r, 3).Value
     
 ' If date is greater than the minimum date and it is a different ticker from the previous
-    ElseIf Cells(r, 2).Value > min_date And Cells(r, 1).Value <> Cells(r - 1, 1).Value Then
+    ElseIf Cells(r, 1).Value <> Cells(r - 1, 1).Value Then
         
     ' Store Open Price for current ticker
         open_price = Cells(r, 3).Value
@@ -139,4 +136,8 @@ For r = 2 To outputBlankrow
 ' Move to next row
 Next r
 
+' Autofit columns
+Columns("I:L").AutoFit
+
 End Sub
+
