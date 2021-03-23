@@ -1,5 +1,8 @@
 Attribute VB_Name = "Module6"
-Sub stockAnalysis():
+Sub stockAnalysis2():
+'3/21/21 - most recent success
+'Working code (unconsolidated)
+'Not intended for use in final analysis
 
 ' Define variables
     Dim ticker As String
@@ -8,13 +11,14 @@ Sub stockAnalysis():
     Dim volume As Double
     Dim year_change As Double
     Dim blankrow As Double
-    Dim max_date As Double
-    Dim min_date As Double
+    Dim percent_change As Double
  
 ' Define row step counter
     Dim r As Long
+    
 ' Define output step counter
     Dim i As Integer
+    
 ' Define additional output step counter
     Dim n As Integer
     
@@ -32,14 +36,14 @@ Sub stockAnalysis():
     i = 2
     n = 2
     
-' Loop through data to sum volume & provide ticker
+' Loop through data to designate tickers, volume, year change & percent change
 For r = 2 To blankrow
 
-' If the next ticker is different
-     If Cells(r, 1).Value <> Cells(r + 1, 1).Value Then
+    ' If the next ticker is different (changed tickers)
+        If Cells(r, 1).Value <> Cells(r + 1, 1).Value Then
         
-    ' Store Closing Price for current ticker
-        close_price = Cells(r, 6).Value
+        ' Store Closing Price for current ticker
+            close_price = Cells(r, 6).Value
 
     ' Calculate yearly change & percent change
         year_change = Round(close_price - open_price, 2)
@@ -50,11 +54,13 @@ For r = 2 To blankrow
             ' If open price doesn't equal 0
             If open_price <> 0 Then
             
+                ' Calculate percent change
                 percent_change = (year_change / open_price) * 100
             
             ' If open price equals 0
             ElseIf open_price = 0 Then
             
+                ' Set percent change to 0
                 percent_change = 0
                 
             End If
