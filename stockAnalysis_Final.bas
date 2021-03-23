@@ -11,6 +11,7 @@ Sub stockAnalysisFinal():
     Dim year_change As Double
     Dim percent_change As Double
     Dim blankrow As Double
+    Dim outputBlankRow As Double
  
 ' Define row step counter
     Dim r As Long
@@ -73,7 +74,7 @@ For r = 2 To blankrow
                 If open_price <> 0 Then
             
                     ' Calculate percent change
-                    percent_change = (year_change / open_price) * 100
+                    percent_change = year_change / open_price
             
             ' If open price equals 0
                 ElseIf open_price = 0 Then
@@ -84,7 +85,7 @@ For r = 2 To blankrow
                 End If
 
         ' Output Percent Change
-            Cells(n, 11).Value = percent_change & "%"
+            Cells(n, 11).Value = percent_change
         
         ' Reset Yearly Change
             year_change = 0
@@ -123,10 +124,10 @@ Next r
 
 'CONDITIONAL FORMATTING:
 ' Define new blank row for output columns
-outputBlankrow = Cells(Rows.Count, 10).End(xlUp).Row
+outputBlankRow = Cells(Rows.Count, 10).End(xlUp).Row
 
 ' Loop through output data to set color formatting
-For r = 2 To outputBlankrow
+For r = 2 To outputBlankRow
 
     ' Setting conditional formatting
         If Cells(r, 10).Value > 0 Then
@@ -146,6 +147,12 @@ Next r
 
 ' Autofit columns
 Columns("I:L").AutoFit
+
+' Add percent number formatting for "percent change"
+Columns("K").NumberFormat = "0.00%"
+
+'Add number formatting for volume
+Columns("L").NumberFormat = "0,000"
 
 End Sub
 
