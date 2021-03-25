@@ -3,6 +3,7 @@ Excel VBA Homework
 
 Files to be Used for Final Analysis:
 - stockAnalysis_Final.bas
+- stockAnalysis_Bonus.bas
 
 Test files (not intended for use):
 - stockAnalysis_Test.bas
