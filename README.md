@@ -2,9 +2,9 @@
 Excel VBA Homework
 
 Files to be Used for Final Analysis:
-- stockAnalysis_Final.bas (runs code for one sheet at a time)
-- stockAnalysis_Bonus.bas (Adds extra summarized values for "Greatest % Increase," "Greatest % Decrease," and "Greatest Total Volume")
-- stockAnalysisFinal_Bonus.bas (runs code through all sheets at once)
+- stockAnalysis_Final.bas or .vbs (runs code for one sheet at a time)
+- stockAnalysis_Bonus.bas or .vbs (Adds extra summarized values for "Greatest % Increase," "Greatest % Decrease," and "Greatest Total Volume")
+- stockAnalysisFinal_Bonus.bas or .vbs (runs code through all sheets at once)
 
 Screenshots for 2014-2016 Stock Results located in 'Screenshots' folder
 
